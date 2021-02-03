@@ -1,2 +1,1 @@
-# NumericalMethodsInFortran
-Numerical Methods in Fortran90
+# Numerical Methods in Fortran90
