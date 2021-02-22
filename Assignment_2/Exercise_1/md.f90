@@ -7,20 +7,32 @@
 MODULE md
     IMPLICIT NONE
     CONTAINS
+
+!************************** f(E) and f'(E) ****************************
+!********** Here we have to set the values of m, V and a **************
     REAL(8) FUNCTION fun(E) RESULT(res)
         REAL(8), INTENT(IN) :: E
         REAL(8) :: m=938d0
-        REAL(8) :: v=60d0
+        REAL(8) :: V=60d0
         REAL(8) :: a=1.45d0/197.3d0
-        res=DSQRT(m*(v-E))*DCOTAN(a*DSQRT(m*(v-E)))+DSQRT(m*E)
+        res=DSQRT(m*(V-E))/DTAN(a*DSQRT(m*(V-E)))+DSQRT(m*E)
     END FUNCTION fun
     REAL(8) FUNCTION dfun(E) RESULT(res)
         REAL(8), INTENT(IN) :: E
+        REAL(8) :: m=938d0
+        REAL(8) :: V=60d0
+        REAL(8) :: a=1.45d0/197.3d0
         REAL(8) :: part1,part2
-        part1=DSQRT(469d0/2d0)*DCOTAN(0.225083d0*DSQRT(60d0-E))
-        part2=3.44678d0/((DSIN(0.225083d0*DSQRT(60d0-E)))**2)
-        res=DSQRT(469d0/2d0)/DSQRT(E)-part1/(DSQRT(60d0-E))+part2
+        part1=m/(2d0*DSQRT(m*E))-m/(DTAN(a*DSQRT(m*(V-E)))*2d0*DSQRT(m*(V-E)))
+        part2=0.5d0*a*m/(DSIN(a*DSQRT(m*(V-E)))*DSIN(a*DSQRT(m*(V-E))))
+        res=part1+part2
     END FUNCTION dfun
+!**********************************************************************
+!**********************************************************************
+    
+    
+!************************ Subroutines *********************************
+!**********************************************************************
     SUBROUTINE bisection(fun,a,b,root,fr,nit)
         IMPLICIT NONE
         INTEGER(8) :: i,nit,N=50
@@ -92,4 +104,5 @@ MODULE md
         END DO
     END SUBROUTINE secant
 END MODULE md
+!**********************************************************************
 !**********************************************************************
