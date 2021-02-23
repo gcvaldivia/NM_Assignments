@@ -137,7 +137,7 @@ REAL(8) FUNCTION g(rr1)
         REAL(8), DIMENSION(:), ALLOCATABLE :: x,w
         COMMON /r1r2/ r1,r2
         r1=rr1
-        n=200            !************** Here we set the value of n *************
+        n=300            !************** Here we set the value of n *************
         alf=1d0
         ALLOCATE(w(n))
         ALLOCATE(x(n))
@@ -161,7 +161,7 @@ PROGRAM integral6d
         REAL(8) :: ss,alf
         INTEGER(8) :: n,i
         REAL(8),EXTERNAL :: g
-        n=200             !************** Here we set the value of n *************
+        n=300            !************** Here we set the value of n *************
         alf=2d0
         ALLOCATE(x(n))
         ALLOCATE(w(n))
